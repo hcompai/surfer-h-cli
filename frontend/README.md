@@ -10,6 +10,10 @@ A Next.js web interface for the open SurferH web agent, an autonomous web agent 
 - **Settings Configuration**: Customize agent behavior, target URLs, and execution parameters
 - **Example Tasks**: Get started quickly with pre-configured example prompts
 
+![Surfer-H Web Interface](interface-screenshot.png)
+
+*The Surfer-H web interface in action, showing real-time monitoring as the agent searches for a beef Wellington recipe*
+
 ## Getting Started
 
 ### Prerequisites

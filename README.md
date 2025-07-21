@@ -121,6 +121,36 @@ and define the correct base URL
 --base_url_validation https://api.openai.com/v1/
 ```
 
+## Frontend Interface
+
+In addition to the command-line interface, Surfer-H includes a modern web frontend that provides an intuitive way to interact with the agent. The frontend offers several advantages over the CLI:
+
+### Features
+
+- **Task Creation**: Simply describe what you want to accomplish in natural language through a web interface
+- **Real-time Monitoring**: Watch your agent complete tasks with live updates
+- **Trajectory Management**: View, replay, and manage automated browsing sequences
+- **Settings Configuration**: Easily customize agent behavior, target URLs, and execution parameters through a UI
+- **Example Tasks**: Get started quickly with pre-configured example prompts
+
+### Quick Start
+
+The easiest way to start both the backend and frontend together is to run from the root directory:
+
+```bash
+./launch.sh
+```
+
+This command will automatically start both the Surfer-H backend and the Next.js frontend, making the web interface available at [http://localhost:3000](http://localhost:3000).
+
+### Interface Preview
+
+![Surfer-H Web Interface](frontend/interface-screenshot.png)
+
+*The Surfer-H web interface showing real-time agent monitoring as it searches for a beef Wellington recipe*
+
+For detailed setup instructions, manual installation, and development information, see the [Frontend README](frontend/README.md).
+
 ## View a sample run
 The video below shows Surfer-H in action, demonstrating how the agent completes a real-world task by thinking, reasoning, and browsing the web based on a prompt. This demo (hosted on **YouTube**) illustrates what to expect when running an agent using the Surfer-H-CLI with the command `./run-on-holo1.sh.`
 
