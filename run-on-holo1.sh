@@ -77,6 +77,7 @@ uv run surfer-h-cli \
     --task "$TASK" \
     --url "$URL" \
     --max_n_steps 30 \
+    --headless-browser \
     --base_url_localization "$HAI_MODEL_URL" \
     --model_name_localization "$MODEL" \
     --temperature_localization 0.7 \

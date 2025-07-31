@@ -316,6 +316,7 @@ def agent_loop(
         url=url,
         screenshots=[browser.screenshot()],
     )
+    set_current_state(current_state)
 
     start_time = time.time()
 
