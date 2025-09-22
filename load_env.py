@@ -34,10 +34,7 @@ def main():
         value = os.getenv(var)
         if value:
             print(f'export {var}="{value}"')
-            if var.endswith("_KEY"):
-                print(f'echo "   ✅ {var}: {value[:8]}..."', file=sys.stderr)
-            else:
-                print(f'echo "   ✅ {var}: {value}"', file=sys.stderr)
+            print(f'echo "   ✅ {var}: {value}"', file=sys.stderr)
         else:
             missing_vars.append(var)
 
