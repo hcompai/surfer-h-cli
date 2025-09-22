@@ -243,8 +243,8 @@ def get_openai_model_names_and_clients(
 
         assert model_name_validation is not None
         print("Validation Model Name:", model_name_validation)
-        assert base_url_validation is not None
-        print("Validation Model URL:", base_url_validation)
+        # Note: base_url_validation can be None for OpenAI models (uses default endpoint)
+        print("Validation Model URL:", base_url_validation or "default OpenAI endpoint")
 
         openai_client_validation = setup_client(
             name="validation",
