@@ -11,12 +11,14 @@ interface CreateTrajectoryInputAreaProps {
   message: string;
   setMessage: (message: string) => void;
   settings: AgentSettings;
+  onOpenSettings: () => void;
 }
 
 export default function CreateTrajectoryInputArea({
   message,
   setMessage,
   settings,
+  onOpenSettings,
 }: CreateTrajectoryInputAreaProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -113,9 +115,13 @@ export default function CreateTrajectoryInputArea({
 
         <div className="w-full flex flex-row justify-between items-center pt-0 mb-0">
           <div className="flex flex-row gap-x-2 items-center">
-             <div className="text-12-regular-body text-gray-5">
-              Starting at: {settings.url}
-            </div>
+            <button
+              type="button"
+              onClick={onOpenSettings}
+              className="text-12-regular-body text-gray-5 hover:text-gray-7 transition-colors duration-200 cursor-pointer"
+            >
+              Starting at: <span className="underline decoration-dotted underline-offset-2">{settings.url}</span>
+            </button>
           </div>
 
           <div className="flex flex-row gap-x-2 items-center">

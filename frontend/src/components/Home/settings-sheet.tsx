@@ -2,7 +2,7 @@
 
 export const MODELS = {
   GPT4_1: "gpt-4.1",
-  HOLO1_7B: "h-model",
+  HOLO: "h-model",
 } as const;
 
 export type ModelType = typeof MODELS[keyof typeof MODELS];
@@ -22,9 +22,9 @@ export const DEFAULT_SETTINGS: AgentSettings = {
   url: "https://www.bing.com",
   max_n_steps: 30,
   max_time_seconds: 600,
-  navigation_model: MODELS.HOLO1_7B,
-  localization_model: MODELS.HOLO1_7B,
-  validation_model: MODELS.HOLO1_7B,
+  navigation_model: MODELS.HOLO,
+  localization_model: MODELS.HOLO,
+  validation_model: MODELS.HOLO,
   headless_browser: true,
   action_timeout: 10,
 };
@@ -74,11 +74,15 @@ import SettingsIcon from "@/components/common/icons/SettingsIcon";
 interface SettingsSheetProps {
   settings: AgentSettings;
   onSettingsChange: (settings: AgentSettings) => void;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 export default function SettingsSheetSelect({
   settings,
   onSettingsChange,
+  open,
+  onOpenChange,
 }: SettingsSheetProps) {
   const handleInputChange = (key: keyof AgentSettings, value: string | number | boolean) => {
     onSettingsChange({
@@ -89,11 +93,11 @@ export default function SettingsSheetSelect({
 
   const modelOptions = [
     { value: MODELS.GPT4_1, label: "GPT-4.1" },
-    { value: MODELS.HOLO1_7B, label: "H-model" },
+    { value: MODELS.HOLO, label: "H-model" },
   ];
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetTrigger asChild>
         <Button
           variant="ghost"
@@ -189,4 +193,4 @@ export default function SettingsSheetSelect({
       </SheetContent>
     </Sheet>
   );
-} 
+}

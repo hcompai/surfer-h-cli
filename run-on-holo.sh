@@ -9,8 +9,8 @@ eval "$(uv run python3 load_env.py HAI_API_KEY HAI_MODEL_URL HAI_MODEL_NAME)"
 echo ""
 
 # Task configuration
-TASK="Find a beef Wellington recipe with a rating of 4.7 or higher and at least 200 reviews."
-URL="https://www.allrecipes.com"
+TASK="On Google flights. Find a one-way business class flight from Buenos Aires to Amsterdam on the 10th of next month, and provide the details of the flight with the shortest duration."
+URL="https://www.google.com/travel/flights"
 
 echo "🎯 Starting task: $TASK"
 echo "🌐 Target URL: $URL"

@@ -84,20 +84,20 @@ vllm serve Hcompany/Holo1-7B --port 8082
 You can then run the agent from the Surfer-H-CLI using the following command:
 
 ```bash
-./run-on-holo1.sh
+./run-on-holo.sh
 ```
 Here are the different run settings that may apply based on use and context:
 
-- ```run-on-holo1.sh``` : Use Holo1 for navigation and localization, hosted remotely.
-- ```run-on-holo1-local.sh``` : Script with specific instruction for using one or several locally hosted Holo1.
-- ```run-on-holo1-val-gpt41.sh``` : Use remotely-hosted Holo1 and GPT-4.1 for validation.
+- ```run-on-holo.sh``` : Use Holo1 for navigation and localization, hosted remotely.
+- ```run-on-holo-local.sh``` : Script with specific instruction for using one or several locally hosted Holo1.
+- ```run-on-holo-val-gpt41.sh``` : Use remotely-hosted Holo1 and GPT-4.1 for validation.
 
 The above scripts call the agent like this, with different configurations for the placeholders:
 
 ```bash
 MODEL="<model name for endpoint>"
-TASK="Find a beef Wellington recipe with a rating of 4.7 or higher and at least 200 reviews."
-URL="https://www.allrecipes.com"
+TASK=""On Google flights. Find a one-way business class flight from Buenos Aires to Amsterdam on the 10th of next month, and provide the details of the flight with the shortest duration.""
+URL="https://www.google.com/travel/flights"
 
 uv run src/surfer_h_cli/surferh.py \
     --task "$TASK" \
@@ -112,7 +112,7 @@ uv run src/surfer_h_cli/surferh.py \
 
 ```
 ### Using GPT for Validation
-To run ```run-on-holo1-val-gpt41.sh```, remember to export your OpenAI API key for validation:
+To run ```run-on-holo-val-gpt41.sh```, remember to export your OpenAI API key for validation:
 ```
 export API_KEY_VALIDATION=${OPENAI_API_KEY}
 ```
@@ -147,12 +147,11 @@ This command will automatically start both the Surfer-H backend and the Next.js 
 
 ![Surfer-H Web Interface](frontend/interface-screenshot.png)
 
-*The Surfer-H web interface showing real-time agent monitoring as it searches for a beef Wellington recipe*
 
 For detailed setup instructions, manual installation, and development information, see the [Frontend README](frontend/README.md).
 
 ## View a sample run
-The video below shows Surfer-H in action, demonstrating how the agent completes a real-world task by thinking, reasoning, and browsing the web based on a prompt. This demo (hosted on **YouTube**) illustrates what to expect when running an agent using the Surfer-H-CLI with the command `./run-on-holo1.sh.`
+The video below shows Surfer-H in action, demonstrating how the agent completes a real-world task by thinking, reasoning, and browsing the web based on a prompt. This demo (hosted on **YouTube**) illustrates what to expect when running an agent using the Surfer-H-CLI with the command `./run-on-holo.sh.`
 
 <p align="center"> <a href="https://www.youtube.com/watch?v=8PF9f3QPeO8" target="_blank" rel="noopener noreferrer"> <img src="https://img.youtube.com/vi/8PF9f3QPeO8/0.jpg" alt="Watch demo on YouTube" /> </a> </p>
 

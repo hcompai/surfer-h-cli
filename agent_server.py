@@ -64,8 +64,8 @@ def get_model_config(model_name: str) -> tuple[str, str | None]:
 
 
 class StartAgentRequest(BaseModel):
-    task: str = "Find a beef Wellington recipe with a rating of 4.7 or higher and at least 200 reviews."
-    url: str = "https://www.allrecipes.com"
+    task: str = "On Google flights. Find a one-way business class flight from Buenos Aires to Amsterdam on the 10th of next month, and provide the details of the flight with the shortest duration."
+    url: str = "https://www.google.com/travel/flights"
     max_n_steps: int = 30
     max_time_seconds: int = 600
 

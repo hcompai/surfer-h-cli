@@ -3,8 +3,8 @@ set -euxo pipefail
 uv sync
 
 # Task related commands
-TASK="Find a beef Wellington recipe with a rating of 4.7 or higher and at least 200 reviews."
-URL="https://www.allrecipes.com"
+TASK="On Google flights. Find a one-way business class flight from Buenos Aires to Amsterdam on the 10th of next month, and provide the details of the flight with the shortest duration."
+URL="https://www.google.com/travel/flights"
 
 # Parameters for the vLLM servers, you can also use the same server twice with the same model!
 
