@@ -58,7 +58,7 @@ pnpm dev
 ### Usage
 
 1. **Create a Task**: Enter a natural language description of what you want to accomplish
-   - Example: "On Google flights. Find a one-way business class flight from Buenos Aires to Amsterdam on the 10th of next month, and provide the details of the flight with the shortest duration."
+   - Example: "Explore H Company's website to discover their recent blog posts, click on each post and gather information. Summarize the 3 most interesting findings and explain why they're significant for the AI and automation industry."
 
 2. **Configure Settings**: Set your target URL and adjust agent parameters
 
