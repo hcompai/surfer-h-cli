@@ -5,12 +5,12 @@ import { AgentSettings, DEFAULT_SETTINGS, loadSettingsFromStorage, saveSettingsT
 import SettingsSheet from "./settings-sheet";
 
 const examples = [
-  "Explore H Company's website to discover their recent blog posts, click on each post and gather information. Summarize the 3 most interesting findings and explain why they're significant for the AI and automation industry.",
+  "Explore H Company's website to discover their recent blog posts, click on the latest post and read to the bottom of the page. Summarize the interesting findings and explain why they're significant for the AI and automation industry.",
   "On Google flights. Find a one-way business class flight from Buenos Aires to Amsterdam on the 10th of next month, and provide the details of the flight with the shortest duration.",
 ];
 
 const exampleUrlMappings: Record<string, string> = {
-  "Explore H Company's website to discover their recent blog posts, click on each post and gather information. Summarize the 3 most interesting findings and explain why they're significant for the AI and automation industry.": "https://www.hcompany.ai",
+"Explore H Company's website to discover their recent blog posts, click on the latest post and read to the bottom of the page. Summarize the interesting findings and explain why they're significant for the AI and automation industry.": "https://www.hcompany.ai",
   "On Google flights. Find a one-way business class flight from Buenos Aires to Amsterdam on the 10th of next month, and provide the details of the flight with the shortest duration.": "https://www.google.com/travel/flights"
 };
 

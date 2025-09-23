@@ -58,7 +58,7 @@ pnpm dev
 ### Usage
 
 1. **Create a Task**: Enter a natural language description of what you want to accomplish
-   - Example: "Explore H Company's website to discover their recent blog posts, click on each post and gather information. Summarize the 3 most interesting findings and explain why they're significant for the AI and automation industry."
+   - Example: "Explore H Company's website to discover their recent blog posts, click on the latest post and read to the bottom of the page. Summarize the interesting findings and explain why they're significant for the AI and automation industry."
 
 2. **Configure Settings**: Set your target URL and adjust agent parameters
 

@@ -17,7 +17,7 @@ export API_KEY_LOCALIZATION="$HAI_API_KEY"
 export API_KEY_NAVIGATION="$HAI_API_KEY"
 
 # Task configuration
-TASK="Explore H Company's website to discover their recent blog posts, click on each post and gather information. Summarize the 3 most interesting findings and explain why they're significant for the AI and automation industry."
+TASK="Explore H Company's website to discover their recent blog posts, click on the latest post and read to the bottom of the page. Summarize the interesting findings and explain why they're significant for the AI and automation industry."
 URL="https://www.hcompany.ai"
 
 echo "🎯 Starting task: $TASK"
