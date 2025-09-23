@@ -19,7 +19,7 @@ export interface AgentSettings {
 }
 
 export const DEFAULT_SETTINGS: AgentSettings = {
-  url: "https://www.bing.com",
+  url: "https://www.hcompany.ai",
   max_n_steps: 30,
   max_time_seconds: 600,
   navigation_model: MODELS.HOLO,
@@ -120,7 +120,7 @@ export default function SettingsSheetSelect({
               type="text"
               value={settings.url}
               onChange={(e) => handleInputChange("url", e.target.value)}
-              placeholder="https://www.bing.com"
+              placeholder="https://www.hcompany.ai"
             />
 
             <LabeledInput

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-echo "🚀 Starting Surfer H - Holo1 Model Run"
+echo "🚀 Starting Surfer H - Holo Model Run"
 echo "======================================"
 
 # Load environment variables using Python helper
@@ -9,8 +9,8 @@ eval "$(uv run python3 load_env.py HAI_API_KEY HAI_MODEL_URL HAI_MODEL_NAME)"
 echo ""
 
 # Task configuration
-TASK="On Google flights. Find a one-way business class flight from Buenos Aires to Amsterdam on the 10th of next month, and provide the details of the flight with the shortest duration."
-URL="https://www.google.com/travel/flights"
+TASK="Explore H Company's website to discover their recent blog posts, click on each post and gather information. Summarize the 3 most interesting findings and explain why they're significant for the AI and automation industry."
+URL="https://www.hcompany.ai"
 
 echo "🎯 Starting task: $TASK"
 echo "🌐 Target URL: $URL"

@@ -3,8 +3,8 @@ set -euxo pipefail
 uv sync
 
 # Task related commands
-TASK="On Google flights. Find a one-way business class flight from Buenos Aires to Amsterdam on the 10th of next month, and provide the details of the flight with the shortest duration."
-URL="https://www.google.com/travel/flights"
+TASK="Explore H Company's website to discover their recent blog posts, click on each post and gather information. Summarize the 3 most interesting findings and explain why they're significant for the AI and automation industry."
+URL="https://www.hcompany.ai"
 
 # Parameters for the vLLM servers, you can also use the same server twice with the same model!
 
