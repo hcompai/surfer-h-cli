@@ -59,7 +59,14 @@ def localization_request(image: Image.Image, element_name: str, model: str, temp
         ],
         "model": model,
         "temperature": temperature,
-        "response_format": {"type": "json_object"},  # Enable structured output
+        "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+                "name": "click_absolute_action",
+                "schema": ClickAbsoluteAction.model_json_schema(),
+                "strict": True
+            }
+        },
     }
     return openai_request
 

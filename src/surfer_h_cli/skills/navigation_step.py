@@ -5,6 +5,7 @@ from typing import Literal
 import openai
 from PIL import Image
 
+from surfer_h_cli.skills.localization import localize_element as localize_element_old
 from surfer_h_cli.skills.localization_1_5 import localize_element_structured
 from surfer_h_cli.skills.navigation_models import AbsWebAgentNavigate, NavigationState, WebAgentAnswer
 from surfer_h_cli.utils import image_to_b64, smart_resize
@@ -129,6 +130,36 @@ def parse_navigation_response(response: openai.types.chat.ChatCompletion) -> dic
     return json.loads(content)
 
 
+def localize_element_by_model(
+    image: Image.Image,
+    element_name: str,
+    openai_client: openai.OpenAI,
+    model: str,
+    temperature: float = 0.0,
+) -> tuple[int, int]:
+    """Localizes an element using the appropriate method based on the model."""
+    if model.startswith("holo1-5"):
+        # Use new structured method
+        click_action = localize_element_structured(
+            image=image,
+            element_name=element_name,
+            openai_client=openai_client,
+            model=model,
+            temperature=temperature,
+        )
+        return (click_action.x, click_action.y)
+    else:
+        # Use old method
+        coords = localize_element_old(
+            image=image,
+            element_name=element_name,
+            openai_client=openai_client,
+            model=model,
+            temperature=temperature,
+        )
+        return (int(coords[0]), int(coords[1]))
+
+
 def navigation_step(
     task: str,
     previous_actions: str,
@@ -159,26 +190,26 @@ def navigation_step(
     action = parsed_response["action"]
     if action["action"] == "click_element":
         element = action["element"]
-        click_action = localize_element_structured(
+        x, y = localize_element_by_model(
             image=screenshots[-1],
             element_name=element,
             openai_client=localization_openai_client,
             model=localizer_model_name,
             temperature=temperature_localization,
         )
-        action["x"] = click_action.x
-        action["y"] = click_action.y
+        action["x"] = x
+        action["y"] = y
 
     elif action["action"] == "write_element":
         element = action["element"]
-        click_action = localize_element_structured(
+        x, y = localize_element_by_model(
             image=screenshots[-1],
             element_name=element,
             openai_client=localization_openai_client,
             model=localizer_model_name,
             temperature=temperature_localization,
         )
-        action["x"] = click_action.x
-        action["y"] = click_action.y
+        action["x"] = x
+        action["y"] = y
 
     return parsed_response
