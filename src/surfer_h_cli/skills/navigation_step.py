@@ -5,7 +5,7 @@ from typing import Literal
 import openai
 from PIL import Image
 
-from surfer_h_cli.skills.localization import localize_element
+from surfer_h_cli.skills.localization_1_5 import localize_element_structured
 from surfer_h_cli.skills.navigation_models import AbsWebAgentNavigate, NavigationState, WebAgentAnswer
 from surfer_h_cli.utils import image_to_b64, smart_resize
 
@@ -159,26 +159,26 @@ def navigation_step(
     action = parsed_response["action"]
     if action["action"] == "click_element":
         element = action["element"]
-        x, y = localize_element(
+        click_action = localize_element_structured(
             image=screenshots[-1],
             element_name=element,
             openai_client=localization_openai_client,
             model=localizer_model_name,
             temperature=temperature_localization,
         )
-        action["x"] = x
-        action["y"] = y
+        action["x"] = click_action.x
+        action["y"] = click_action.y
 
     elif action["action"] == "write_element":
         element = action["element"]
-        x, y = localize_element(
+        click_action = localize_element_structured(
             image=screenshots[-1],
             element_name=element,
             openai_client=localization_openai_client,
             model=localizer_model_name,
             temperature=temperature_localization,
         )
-        action["x"] = x
-        action["y"] = y
+        action["x"] = click_action.x
+        action["y"] = click_action.y
 
     return parsed_response
