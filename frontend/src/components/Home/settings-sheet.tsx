@@ -2,7 +2,8 @@
 
 export const MODELS = {
   GPT4_1: "gpt-4.1",
-  HOLO: "h-model",
+  HOLO1_7B: "holo1-7b-20250521",
+  HOLO1_5: "holo1-5-7b-20250915",
 } as const;
 
 export type ModelType = typeof MODELS[keyof typeof MODELS];
@@ -22,9 +23,9 @@ export const DEFAULT_SETTINGS: AgentSettings = {
   url: "https://www.hcompany.ai",
   max_n_steps: 30,
   max_time_seconds: 600,
-  navigation_model: MODELS.HOLO,
-  localization_model: MODELS.HOLO,
-  validation_model: MODELS.HOLO,
+  navigation_model: MODELS.HOLO1_7B,
+  localization_model: MODELS.HOLO1_5,
+  validation_model: MODELS.HOLO1_7B,
   headless_browser: true,
   action_timeout: 10,
 };
@@ -40,16 +41,51 @@ export function saveSettingsToStorage(settings: AgentSettings): void {
   }
 }
 
+function migrateOldModelNames(settings: Partial<AgentSettings>): AgentSettings {
+  // Migration map for old model names to new ones
+  const modelMigrationMap: Record<string, ModelType> = {
+    "h-model": MODELS.HOLO1_7B,
+    "gpt-4.1": MODELS.GPT4_1,
+  };
+  
+  // Get valid model values
+  const validModels = Object.values(MODELS);
+  
+  const getValidModel = (modelName: unknown, fallback: ModelType): ModelType => {
+    // Check if modelName is a string
+    if (typeof modelName !== 'string') {
+      return fallback;
+    }
+    
+    // First try migration
+    if (modelMigrationMap[modelName]) {
+      return modelMigrationMap[modelName];
+    }
+    // Check if it's already a valid model
+    if (validModels.includes(modelName as ModelType)) {
+      return modelName as ModelType;
+    }
+    // Fall back to default
+    return fallback;
+  };
+
+  return {
+    ...DEFAULT_SETTINGS,
+    ...settings,
+    // Ensure all model fields have valid values
+    navigation_model: getValidModel(settings.navigation_model, DEFAULT_SETTINGS.navigation_model),
+    localization_model: getValidModel(settings.localization_model, DEFAULT_SETTINGS.localization_model),
+    validation_model: getValidModel(settings.validation_model, DEFAULT_SETTINGS.validation_model),
+  };
+}
+
 export function loadSettingsFromStorage(): AgentSettings {
   try {
     const stored = localStorage.getItem(SETTINGS_STORAGE_KEY);
     if (stored) {
       const parsed = JSON.parse(stored);
-      // Validate that all required fields exist and merge with defaults for any missing fields
-      return {
-        ...DEFAULT_SETTINGS,
-        ...parsed,
-      };
+      // Migrate old settings and validate all fields exist
+      return migrateOldModelNames(parsed);
     }
   } catch (error) {
     console.warn("Failed to load settings from localStorage:", error);
@@ -93,7 +129,8 @@ export default function SettingsSheetSelect({
 
   const modelOptions = [
     { value: MODELS.GPT4_1, label: "GPT-4.1" },
-    { value: MODELS.HOLO, label: "H-model" },
+    { value: MODELS.HOLO1_7B, label: "Holo1-7B" },
+    { value: MODELS.HOLO1_5, label: "Holo1-5-7B" },
   ];
 
   return (

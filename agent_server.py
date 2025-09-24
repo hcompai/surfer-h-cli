@@ -25,12 +25,10 @@ from surfer_h_cli import surferh
 app = FastAPI()
 
 
-HMODEL = "h-model"
-
-
 def get_model_config(model_name: str) -> tuple[str, str | None]:
     """
     Determine the appropriate API key and base URL based on the model name.
+    Build full URL dynamically for HAI models.
 
     Returns:
         Tuple of (api_key, base_url)
@@ -38,22 +36,30 @@ def get_model_config(model_name: str) -> tuple[str, str | None]:
     # Convert model name to lowercase for comparison
     model_lower = model_name.lower()
 
-    # Check if it's a Holo1-7B model
-    if HMODEL in model_lower:
-        api_key = os.getenv("HAI_API_KEY")
-        base_url = os.getenv("HAI_MODEL_URL")
-        if not api_key:
-            raise ValueError("HAI_API_KEY environment variable is required for Holo1-7B models")
-        if not base_url:
-            raise ValueError("HAI_MODEL_URL environment variable is required for Holo1-7B models")
-        return api_key, base_url
-
     # Check if it's a GPT model
-    elif "gpt" in model_lower:
+    if "gpt" in model_lower:
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
             raise ValueError("OPENAI_API_KEY environment variable is required for GPT models")
         return api_key, None  # Use default OpenAI base URL
+
+    # Check if it's any Holo model (holo1, holo1-5, etc.)
+    elif "holo" in model_lower:
+        api_key = os.getenv("HAI_API_KEY")
+        if not api_key:
+            raise ValueError("HAI_API_KEY environment variable is required for Holo models")
+        
+        # Extract base URL from HAI_MODEL_URL
+        hai_model_url = os.getenv("HAI_MODEL_URL", "")
+        if not hai_model_url:
+            raise ValueError("HAI_MODEL_URL environment variable is required for Holo models")
+        # Split at '/models/' to get the base URL
+        if "/models/" in hai_model_url:
+            base_api_url = hai_model_url.split("/models/")[0]
+        
+        full_url = f"{base_api_url}/models/{model_name}"
+        
+        return api_key, full_url
 
     else:
         # Default to OpenAI for unknown models
@@ -69,16 +75,15 @@ class StartAgentRequest(BaseModel):
     max_n_steps: int = 30
     max_time_seconds: int = 600
 
-    model_name_navigation: str = os.getenv("HAI_MODEL_NAME", "Hcompany/Holo1-7B")
+    model_name_navigation: str = os.getenv("HAI_MODEL_NAME_NAVIGATION", "holo1-7b-20250521")
     temperature_navigation: float = 0.7
     n_navigation_screenshots: int = 3
 
-    base_url_localization: str = os.getenv("HAI_MODEL_URL", "EMPTY")
-    model_name_localization: str = os.getenv("HAI_MODEL_NAME", "Hcompany/Holo1-7B")
+    model_name_localization: str = os.getenv("HAI_MODEL_NAME_LOCALIZATION", "holo1-5-7b-20250915")
     temperature_localization: float = 0.7
 
     use_validator: bool = True
-    model_name_validation: str = os.getenv("HAI_MODEL_NAME", "Hcompany/Holo1-7B")
+    model_name_validation: str = os.getenv("HAI_MODEL_NAME_VALIDATION", "holo1-7b-20250521")
     temperature_validation: float = 0.0
 
     headless_browser: bool = False
@@ -135,7 +140,6 @@ class AgentRunner:
         temperature_navigation = kwargs.get("temperature_navigation", defaults.temperature_navigation)
         n_navigation_screenshots = kwargs.get("n_navigation_screenshots", defaults.n_navigation_screenshots)
 
-        base_url_localization = kwargs.get("base_url_localization", defaults.base_url_localization)
         model_name_localization = kwargs.get("model_name_localization", defaults.model_name_localization)
         temperature_localization = kwargs.get("temperature_localization", defaults.temperature_localization)
 
@@ -162,7 +166,6 @@ class AgentRunner:
                 "model_name_navigation": model_name_navigation,
                 "temperature_navigation": temperature_navigation,
                 "n_navigation_screenshots": n_navigation_screenshots,
-                "base_url_localization": base_url_localization,
                 "model_name_localization": model_name_localization,
                 "temperature_localization": temperature_localization,
                 "use_validator": use_validator,
@@ -248,7 +251,6 @@ class AgentRunner:
             temperature_navigation = kwargs.get("temperature_navigation", defaults.temperature_navigation)
             n_navigation_screenshots = kwargs.get("n_navigation_screenshots", defaults.n_navigation_screenshots)
 
-            base_url_localization = kwargs.get("base_url_localization", defaults.base_url_localization)
             model_name_localization = kwargs.get("model_name_localization", defaults.model_name_localization)
             temperature_localization = kwargs.get("temperature_localization", defaults.temperature_localization)
 
@@ -288,13 +290,8 @@ class AgentRunner:
             else:
                 openai_client_validation = openai_client_navigation
 
-            # Replace model name with env name if it exists for vllm (only for Holo1 models)
-            if HMODEL in model_name_navigation.lower():
-                model_name_navigation = os.getenv("HAI_MODEL_NAME", model_name_navigation)
-            if HMODEL in model_name_localization.lower():
-                model_name_localization = os.getenv("HAI_MODEL_NAME", model_name_localization)
-            if HMODEL in model_name_validation.lower():
-                model_name_validation = os.getenv("HAI_MODEL_NAME", model_name_validation)
+            # Model names are now specific (e.g., "holo1-5-7b-20250915")
+            # No replacement needed since frontend sends exact model names
 
             result = surferh.agent_loop(
                 task=task,
@@ -551,7 +548,6 @@ async def start_agent(request: StartAgentRequest):
             model_name_navigation=request.model_name_navigation,
             temperature_navigation=request.temperature_navigation,
             n_navigation_screenshots=request.n_navigation_screenshots,
-            base_url_localization=request.base_url_localization,
             model_name_localization=request.model_name_localization,
             temperature_localization=request.temperature_localization,
             use_validator=request.use_validator,
@@ -595,24 +591,6 @@ async def get_trajectory_events(trajectory_id: str):
     if not trajectory_data:
         raise HTTPException(status_code=404, detail="Trajectory not found")
     return trajectory_data
-
-
-@app.get("/config")
-async def get_config():
-    """Get system configuration including available models"""
-    hai_model_name = os.getenv("HAI_MODEL_NAME", "Hcompany/Holo1-7B")
-
-    return {
-        "models": {
-            "holo1": {"name": hai_model_name, "label": "Holo1-7B", "type": "holo1"},
-            "gpt4": {"name": "gpt-4.1", "label": "GPT-4.1", "type": "gpt"},
-        },
-        "defaults": {
-            "navigation_model": hai_model_name,
-            "localization_model": hai_model_name,
-            "validation_model": hai_model_name,
-        },
-    }
 
 
 @app.get("/health")
