@@ -1,12 +1,13 @@
 
 
 # Surfer-H-CLI / Open Surfer-H
-[�� Website](https://www.hcompany.ai/surfer-h) |
-[�� Tech report](https://arxiv.org/abs/2506.02865) |
-[�� Hugging-Face Models](https://huggingface.co/Hcompany) |
-[�� Surfer-H product](https://www.surferh.com/) |
-[☁️ AWS Model Deployment](https://aws.amazon.com/marketplace/seller-profile?id=seller-sjve6dep3p3xc)
 
+
+[🌐 Website](https://www.hcompany.ai/surfer-h) |
+[📖 Tech report](https://arxiv.org/abs/2506.02865) |
+[🤗 Hugging-Face Models](https://huggingface.co/collections/Hcompany) |
+[🏄 Surfer-H product](https://www.surferh.com/) |
+[☁️ AWS Model Deployment](https://aws.amazon.com/marketplace/seller-profile?id=seller-sjve6dep3p3xc)
 
 
 <div align="center">
