@@ -17,7 +17,7 @@ export const SurferView: React.FC<SurferViewProps> = ({
 
   return (
     <div className="h-full w-full overflow-hidden scrollbar-hide">
-      <div className="bg-background-card border-b border-border flex flex-row items-center justify-between h-13 p-2 pl-4">
+      <div className="border-b border-border flex flex-row items-center justify-between h-13 p-2 pl-4">
         <div className="flex items-center gap-2 text-14-medium-body my-0">
           <SurferIcon className="w-5 h-5 text-gray-8" />
           <h2 className="text-14-medium-body text-gray-8">
@@ -31,7 +31,7 @@ export const SurferView: React.FC<SurferViewProps> = ({
         </div>
       </div>
 
-      <div className="h-[calc(100%-52px)] overflow-hidden">
+      <div className="bg-canvas-background h-[calc(100%-52px)] overflow-hidden">
         <EventStream trajectoryId={taskId} />
       </div>
     </div>
