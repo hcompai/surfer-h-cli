@@ -12,7 +12,7 @@
 
 <div align="center">
 
-**Introducing the latest range of Holo models: [Holo1.5](https://huggingface.co/collections/Hcompany/holo15-68c1a5736e8583a309d23d9b)**  
+**Introducing the latest range of Holo models: [Holo1.5](https://huggingface.co/collections/Hcompany/holo15-68c1a5736e8583a309d23d9b)**
 *State-of-the-art Foundational Models for Computer Use Agents*
 
 </div>
@@ -26,7 +26,8 @@ The Surfer-H-CLI is the command-line interface for running and controlling the S
 
 ## Quick Start
 
-To get started, first generate an API key at: . *This API key will allow you to run inference on H company models. Guide: [generate an API key]()*
+To get started, first generate an API key at: https://portal.hcompany.ai.
+*This API key will allow you to run inference on H company models. Guide: [generate an API key](https://hub.hcompany.ai/surferh/generateanapikey)*
 
 
 Next, copy the example env variables.
