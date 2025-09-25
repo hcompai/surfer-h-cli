@@ -17,14 +17,14 @@ export API_KEY_LOCALIZATION="$HAI_API_KEY"
 export API_KEY_NAVIGATION="$HAI_API_KEY"
 
 # Task configuration
-TASK="Find a beef Wellington recipe with a rating of 4.7 or higher and at least 200 reviews."
-URL="https://www.allrecipes.com"
+TASK="Explore H Company's website to discover their recent blog posts, click on the latest post and read to the bottom of the page. Summarize the interesting findings and explain why they're significant for the AI and automation industry."
+URL="https://www.hcompany.ai"
 
 echo "🎯 Starting task: $TASK"
 echo "🌐 Target URL: $URL"
 echo "🤖 Model: $HAI_MODEL_NAME"
 echo "🤖 Model URL: $HAI_MODEL_URL"
-echo "✅ Validation: GPT-4o enabled"
+echo "✅ Validation: GPT-4.1 enabled"
 echo ""
 
 # Run the surfer-h-cli command
@@ -39,6 +39,6 @@ uv run surfer-h-cli \
     --model_name_navigation "$HAI_MODEL_NAME" \
     --temperature_navigation 0.7 \
     --use_validator \
-    --model_name_validation gpt-4o-2024-08-06 \
+    --model_name_validation gpt-4.1-2025-04-14 \
     --temperature_validation 0.0 \
     "$@"

@@ -5,13 +5,13 @@ import { AgentSettings, DEFAULT_SETTINGS, loadSettingsFromStorage, saveSettingsT
 import SettingsSheet from "./settings-sheet";
 
 const examples = [
-  "Find a beef Wellington recipe with a rating of 4.7 or higher and at least 200 reviews.",
-  "Search for the latest iPhone price on Amazon",
+  "Explore H Company's website to discover their recent blog posts, click on the latest post and read to the bottom of the page. Summarize the interesting findings and explain why they're significant for the AI and automation industry.",
+  "On Google flights. Find a one-way business class flight from Buenos Aires to Amsterdam on the 10th of next month, and provide the details of the flight with the shortest duration.",
 ];
 
 const exampleUrlMappings: Record<string, string> = {
-  "Find a beef Wellington recipe with a rating of 4.7 or higher and at least 200 reviews.": "https://www.allrecipes.com",
-  "Search for the latest iPhone price on Amazon": "https://www.amazon.com",
+"Explore H Company's website to discover their recent blog posts, click on the latest post and read to the bottom of the page. Summarize the interesting findings and explain why they're significant for the AI and automation industry.": "https://www.hcompany.ai",
+  "On Google flights. Find a one-way business class flight from Buenos Aires to Amsterdam on the 10th of next month, and provide the details of the flight with the shortest duration.": "https://www.google.com/travel/flights"
 };
 
 function ExamplePrompts({ onSelectExample }: { onSelectExample: (example: string) => void }) {
@@ -53,6 +53,7 @@ export default function HomepageContainer() {
   const [message, setMessage] = useState<string>("");
   const [settings, setSettings] = useState<AgentSettings>(DEFAULT_SETTINGS);
   const [isSettingsLoaded, setIsSettingsLoaded] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   // Load settings from localStorage on mount
   useEffect(() => {
@@ -85,6 +86,10 @@ export default function HomepageContainer() {
     setSettings(newSettings);
   };
 
+  const handleOpenSettings = () => {
+    setIsSettingsOpen(true);
+  };
+
   return (
     <div className="relative h-full w-full">
       {/* Settings Button - Top Right */}
@@ -92,19 +97,22 @@ export default function HomepageContainer() {
         <SettingsSheet
           settings={settings}
           onSettingsChange={handleSettingsChange}
+          open={isSettingsOpen}
+          onOpenChange={setIsSettingsOpen}
         />
       </div>
 
       {/* Main Content */}
       <div className="flex flex-col pt-10 md:pt-40 items-center pb-10">
         <div className="flex flex-col md:flex-row items-center text-center mb-4 md:mb-0 md:text-left gap-y-0 md:gap-x-3.5">
-          <h1 className="text-36-light-heading">Open SurferH</h1>
+          <h1 className="text-36-light-heading">Open Surfer-H</h1>
         </div>
 
         <CreateTrajectoryInputArea
           message={message}
           setMessage={setMessage}
           settings={settings}
+          onOpenSettings={handleOpenSettings}
         />
 
         <ExamplePrompts onSelectExample={handleSelectExample} />

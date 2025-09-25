@@ -12,7 +12,6 @@ A Next.js web interface for the open SurferH web agent, an autonomous web agent 
 
 ![Surfer-H Web Interface](interface-screenshot.png)
 
-*The Surfer-H web interface in action, showing real-time monitoring as the agent searches for a beef Wellington recipe*
 
 ## Getting Started
 
@@ -59,8 +58,7 @@ pnpm dev
 ### Usage
 
 1. **Create a Task**: Enter a natural language description of what you want to accomplish
-   - Example: "Find a beef Wellington recipe with a rating of 4.7 or higher and at least 200 reviews"
-   - Example: "Search for the latest iPhone price on Amazon"
+   - Example: "Explore H Company's website to discover their recent blog posts, click on the latest post and read to the bottom of the page. Summarize the interesting findings and explain why they're significant for the AI and automation industry."
 
 2. **Configure Settings**: Set your target URL and adjust agent parameters
 

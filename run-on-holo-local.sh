@@ -3,8 +3,8 @@ set -euxo pipefail
 uv sync
 
 # Task related commands
-TASK="Find a beef Wellington recipe with a rating of 4.7 or higher and at least 200 reviews."
-URL="https://www.allrecipes.com"
+TASK="Explore H Company's website to discover their recent blog posts, click on the latest post and read to the bottom of the page. Summarize the interesting findings and explain why they're significant for the AI and automation industry."
+URL="https://www.hcompany.ai"
 
 # Parameters for the vLLM servers, you can also use the same server twice with the same model!
 
