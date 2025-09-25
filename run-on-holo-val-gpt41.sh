@@ -24,7 +24,7 @@ echo "🎯 Starting task: $TASK"
 echo "🌐 Target URL: $URL"
 echo "🤖 Model: $HAI_MODEL_NAME"
 echo "🤖 Model URL: $HAI_MODEL_URL"
-echo "✅ Validation: GPT-4o enabled"
+echo "✅ Validation: GPT-4.1 enabled"
 echo ""
 
 # Run the surfer-h-cli command
@@ -39,6 +39,6 @@ uv run surfer-h-cli \
     --model_name_navigation "$HAI_MODEL_NAME" \
     --temperature_navigation 0.7 \
     --use_validator \
-    --model_name_validation gpt-4o-2024-08-06 \
+    --model_name_validation gpt-4.1-2025-04-14 \
     --temperature_validation 0.0 \
     "$@"
