@@ -10,11 +10,9 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
   "openai>=1.93.0",
-  "pillow>=8,<=11.1",
+  "pillow>=8",
   "pydantic>=2.0",
   "selenium>=4.28.1",
-  "transformers<4.53.0",
-  "vllm>=0.9.1",
 ]
 authors = [
   {name = "Surfer H Contributors"},
