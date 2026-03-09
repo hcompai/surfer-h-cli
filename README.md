@@ -29,6 +29,32 @@ The Surfer-H-CLI is the command-line interface for running and controlling the S
 To get started, first generate an API key at: https://portal.hcompany.ai.
 *This API key will allow you to run inference on H company models. Guide: [generate an API key](https://hub.hcompany.ai/surferh/generateanapikey)*
 
+Next, install the project.
+
+```bash
+pipx install git+https://github.com/hcompai/surfer-h-cli
+```
+
+And run it:
+
+```bash
+export HAI_API_KEY=...
+export HAI_MODEL_URL=...
+export HAI_MODEL_NAME=...
+
+surfer-h-cli \
+    --task "Explore H Company's website to discover their recent blog posts." \
+    --url "https://www.hcompany.ai" \
+    --max_n_steps 30 \
+    --base_url_localization "$HAI_MODEL_URL" \
+    --model_name_localization "$HAI_MODEL_NAME" \
+    --temperature_localization 0.7 \
+    --base_url_navigation "$HAI_MODEL_URL" \
+    --model_name_navigation "$HAI_MODEL_NAME" \
+    --temperature_navigation 0.0
+```
+
+### From sources
 
 Next, copy the example env variables.
 
@@ -63,8 +89,6 @@ Running with the frontend interface:
 ```
 
 This command will automatically start both the Surfer-H backend and the Next.js frontend, making the web interface available at [http://localhost:3000](http://localhost:3000).
-
-
 
 # Holo models
 
