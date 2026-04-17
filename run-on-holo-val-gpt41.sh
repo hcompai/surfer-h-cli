@@ -5,7 +5,7 @@ echo "🚀 Starting Surfer H - Holo1 Model Run with GPT-4o Validation"
 echo "=============================================================="
 
 # Load environment variables using Python helper
-eval "$(uv run python3 load_env.py HAI_API_KEY HAI_MODEL_URL HAI_MODEL_NAME OPENAI_API_KEY)"
+eval "$(uv run python load_env.py HAI_API_KEY HAI_MODEL_URL HAI_MODEL_NAME OPENAI_API_KEY)"
 echo ""
 
 # Sync dependencies

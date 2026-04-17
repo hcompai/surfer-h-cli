@@ -8,6 +8,7 @@ from PIL import Image
 from surfer_h_cli.skills.localization import localize_element as localize_element_old
 from surfer_h_cli.skills.localization_1_5 import localize_element_structured
 from surfer_h_cli.skills.navigation_models import AbsWebAgentNavigate, NavigationState, WebAgentAnswer
+from surfer_h_cli.skills.structured_output import structured_output_params
 from surfer_h_cli.utils import image_to_b64, smart_resize
 
 NAVIGATION_PROMPT: str = f"""Imagine you are a robot browsing the web, just like humans. Now you need to complete a task.
@@ -40,19 +41,7 @@ Guidelines:
 - If you are facing a captcha on a website, try to solve it.
 
 - if you have enough information in the screenshot and in the notes to answer the task, return an answer action with the detailed answer in the notes field
-- The current date is {datetime.today().strftime("%A, %B %-d, %Y")}."""
-
-
-def response_format_json_schema(json_schema: dict, name: str, description: str = "", strict: bool = True) -> dict:
-    return {
-        "type": "json_schema",
-        "json_schema": {
-            "schema": json_schema,
-            "name": name,
-            "description": description,
-            "strict": strict,
-        },
-    }
+- The current date is {datetime.today().strftime("%A, %B %d, %Y")}."""
 
 
 def image_content(image: Image.Image, format: Literal["jpeg", "png"] = "jpeg") -> dict:
@@ -111,15 +100,12 @@ def navigation_request(
     user_content.extend([image_content(image, format=image_format) for image in images])
     messages.append({"role": "user", "content": user_content})  # type: ignore
 
-    if force_answer:
-        response_format = WebAgentAnswer.get_json_schema()
-    else:
-        response_format = AbsWebAgentNavigate.get_json_schema()
+    model_cls = WebAgentAnswer if force_answer else AbsWebAgentNavigate
     openai_request = {
         "messages": messages,
         "model": model,
         "temperature": temperature,
-        "response_format": response_format,
+        **structured_output_params(model, model_cls.model_json_schema(), model_cls.__name__),
     }
     return openai_request
 

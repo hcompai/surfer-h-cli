@@ -5,7 +5,7 @@ echo "🚀 Starting Surfer H - Full Stack Application"
 echo "=============================================="
 
 # Load environment variables using Python helper
-eval "$(uv run python3 load_env.py HAI_API_KEY HAI_MODEL_URL HAI_MODEL_NAME)"
+eval "$(uv run python load_env.py HAI_API_KEY HAI_MODEL_URL HAI_MODEL_NAME)"
 echo ""
 
 # Check if virtual environment exists, create if it doesn't
