@@ -1,5 +1,10 @@
 
 
+> [!IMPORTANT]
+> **Surfer-H-CLI has been deprecated and is no longer maintained.**
+>
+> Please use the **[Models API](https://hub.hcompany.ai/about-the-models-api)** and **[Agent API](https://hub.hcompany.ai/computer-use-agents/introduction)** instead. The typed Python/TypeScript clients and CLI now ship as **`hai-agents`** — [PyPI](https://pypi.org/project/hai-agents/) · [npm](https://www.npmjs.com/package/hai-agents) · [SDK docs](https://hub.hcompany.ai/computer-use-agents/integrations).
+
 # Surfer-H-CLI / Open Surfer-H
 
 
