@@ -6,6 +6,8 @@ import openai
 from PIL import Image
 from pydantic import BaseModel, Field
 
+from surfer_h_cli.skills.structured_output import structured_output_params
+
 
 class ClickAbsoluteAction(BaseModel):
     """Click at absolute coordinates."""
@@ -59,14 +61,7 @@ def localization_request(image: Image.Image, element_name: str, model: str, temp
         ],
         "model": model,
         "temperature": temperature,
-        "response_format": {
-            "type": "json_schema",
-            "json_schema": {
-                "name": "click_absolute_action",
-                "schema": ClickAbsoluteAction.model_json_schema(),
-                "strict": True
-            }
-        },
+        **structured_output_params(model, ClickAbsoluteAction.model_json_schema(), "click_absolute_action"),
     }
     return openai_request
 

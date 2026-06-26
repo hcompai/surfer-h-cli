@@ -5,7 +5,7 @@ echo "🚀 Starting Surfer H - Holo Model Run"
 echo "======================================"
 
 # Load environment variables using Python helper
-eval "$(uv run python3 load_env.py HAI_API_KEY HAI_MODEL_URL_NAVIGATION HAI_MODEL_NAME_NAVIGATION HAI_MODEL_URL_LOCALIZATION HAI_MODEL_NAME_LOCALIZATION)"
+eval "$(uv run python load_env.py HAI_API_KEY HAI_MODEL_URL_NAVIGATION HAI_MODEL_NAME_NAVIGATION HAI_MODEL_URL_LOCALIZATION HAI_MODEL_NAME_LOCALIZATION)"
 echo ""
 
 # Task configuration
